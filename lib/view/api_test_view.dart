@@ -3,6 +3,9 @@ import 'package:front/model/cats.dart';
 import 'package:front/model/db_helper.dart';
 import 'package:front/view/cat_detail.dart';
 import 'package:front/view/cat_detail_edit.dart';
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
 
 // catテーブルの内容全件を一覧表示するクラス
 class CatList extends StatefulWidget {
@@ -13,16 +16,38 @@ class CatList extends StatefulWidget {
 }
 
 class _CatListPageState extends State<CatList> {
+  List items = [];
+
+  Future<void> getData() async {
+    var response = await http.get(Uri.https(
+        'www.googleapis.com',
+        '/books/v1/volumes',
+        {'q': '{Flutter}', 'maxResults': '40', 'langRestrict': 'ja'}));
+
+    var jsonResponse = jsonDecode(response.body);
+    print(jsonResponse['items'][0]['volumeInfo']);
+    setState(() {
+      items = jsonResponse['items'];
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    getData();
+  }
+
   List<Cats> catList = []; //catsテーブルの全件を保有する
   bool isLoading = false; //テーブル読み込み中の状態を保有する
 
 // Stateのサブクラスを作成し、initStateをオーバーライドすると、wedgit作成時に処理を動かすことができる。
 // ここでは、初期処理としてCatsの全データを取得する。
   @override
-  void initState() {
-    super.initState();
-    getCatsList();
-  }
+  // void initState() {
+  //   super.initState();
+  //   getCatsList();
+  // }
 
 // initStateで動かす処理。
 // catsテーブルに登録されている全データを取ってくる
@@ -43,9 +68,9 @@ class _CatListPageState extends State<CatList> {
           : SizedBox(
               child: ListView.builder(
                 // 取得したcatsテーブル全件をリスト表示する
-                itemCount: catList.length, // 取得したデータの件数を取得
+                itemCount: items.length, // 取得したデータの件数を取得
                 itemBuilder: (BuildContext context, int index) {
-                  final cat = catList[index]; // 1件分のデータをcatに取り出す
+                  final cat = items[index]; // 1件分のデータをcatに取り出す
                   return Card(
                     // ここで1件分のデータを表示
                     child: InkWell(
@@ -53,7 +78,7 @@ class _CatListPageState extends State<CatList> {
                       child: Padding(
                         // cardのpadding設定
                         padding: const EdgeInsets.all(15.0),
-                        child: Row(// cardの中身をRowで設定
+                        child: Wrap(// cardの中身をRowで設定
                             children: <Widget>[
                           // Rowの中身を設定
                           Container(
@@ -61,26 +86,27 @@ class _CatListPageState extends State<CatList> {
                               width: 80,
                               height: 80,
                               decoration: const BoxDecoration(
-                                  shape: BoxShape.circle, // 丸にする
+                                shape: BoxShape.circle, // 丸にする
                               )),
+
                           Text(
-                            cat.name,
+                            cat['volumeInfo']['title'],
                             style: const TextStyle(fontSize: 30),
                           ), // catのnameを表示
                         ]),
                       ),
-                      onTap: () async {
-                        // cardをtapしたときの処理を設定
-                        await Navigator.of(context).push(
-                          // ページ遷移をNavigatorで設定
-                          MaterialPageRoute(
-                            builder: (context) => CatDetail(
-                                id: cat
-                                    .id!), // cardのデータの詳細を表示するcat_detail.dartへ遷移
-                          ),
-                        );
-                        getCatsList(); // データが更新されているかもしれないので、catsテーブル全件読み直し
-                      },
+                      // onTap: () async {
+                      //   // cardをtapしたときの処理を設定
+                      //   await Navigator.of(context).push(
+                      //     // ページ遷移をNavigatorで設定
+                      //     MaterialPageRoute(
+                      //       builder: (context) => CatDetail(
+                      //           id: cat
+                      //               .id!), // cardのデータの詳細を表示するcat_detail.dartへ遷移
+                      //     ),
+                      //   );
+                      //   getCatsList(); // データが更新されているかもしれないので、catsテーブル全件読み直し
+                      // },
                     ),
                   );
                 },
