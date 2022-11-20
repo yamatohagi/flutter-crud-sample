@@ -34,8 +34,10 @@ class _CatListPageState extends State<CatList> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('猫一覧')),
+    return Scaffold(      
+      
+      
+      appBar: AppBar(title: const Text('お薬手帳一覧')),
       body: isLoading //「読み込み中」だったら「グルグル」が表示される
           ? const Center(
               child: CircularProgressIndicator(), // これが「グルグル」の処理
@@ -85,7 +87,7 @@ class _CatListPageState extends State<CatList> {
                   );
                 },
               ),
-            ),
+            ),            
       floatingActionButton: FloatingActionButton(
         // ＋ボタンを下に表示する
         child: const Icon(Icons.add), // ボタンの形を指定

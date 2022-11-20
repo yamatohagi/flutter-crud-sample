@@ -51,7 +51,7 @@ class _CatDetailEditState extends State<CatDetailEdit> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('猫編集'),
+        title: const Text('お薬手帳編集'),
         actions: [
           buildSaveButton(), // 保存ボタンを表示する
         ],

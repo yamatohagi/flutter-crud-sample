@@ -39,7 +39,7 @@ class _CatDetailState extends State<CatDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('猫詳細'),
+          title: const Text('お薬手帳詳細'),
           actions: [
             IconButton(
               onPressed: () async {

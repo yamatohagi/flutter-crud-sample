@@ -60,7 +60,7 @@ class _CatListPageState extends State<CatList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('猫一覧')),
+      appBar: AppBar(title: const Text('お薬手帳一覧')),
       body: isLoading //「読み込み中」だったら「グルグル」が表示される
           ? const Center(
               child: CircularProgressIndicator(), // これが「グルグル」の処理
