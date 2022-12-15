@@ -18,7 +18,7 @@ class _CatDetailEditState extends State<CatDetailEdit> {
   late String gender;
   late String memo;
   late DateTime createdAt;
-  final List<String> _list = <String>['男の子', '女の子', '不明']; // 性別のDropdownの項目を設定
+  final List<String> _list = <String>['男', '女E', '不明']; // 性別のDropdownの項目を設定
   late String _selected; // Dropdownの選択値を格納するエリア
   String value = '不明'; // Dropdownの初期値
   static const int textExpandedFlex = 1; // 見出しのexpaded flexの比率
@@ -59,26 +59,26 @@ class _CatDetailEditState extends State<CatDetailEdit> {
       body: SingleChildScrollView(
         child: Column(children: <Widget>[
           Row(children: [
-            // 名前の行の設定
+            // 氏名の行の設定
             const Expanded(
-              // 見出し（名前）
+              // 見出し（氏名）
               flex: textExpandedFlex,
               child: Text(
-                '名前',
+                '氏名',
                 textAlign: TextAlign.center,
               ),
             ),
             Expanded(
-              // 名前入力エリアの設定
+              // 氏名入力エリアの設定
               flex: dataExpandedFlex,
               child: TextFormField(
                 maxLines: 1,
                 initialValue: name,
                 decoration: const InputDecoration(
-                  hintText: '名前を入力してください',
+                  hintText: '氏名を入力してください',
                 ),
                 validator: (name) => name != null && name.isEmpty
-                    ? '名前は必ず入れてね'
+                    ? '氏名は必ず入れてね'
                     : null, // validateを設定
                 onChanged: (name) => setState(() => this.name = name),
               ),
@@ -111,21 +111,21 @@ class _CatDetailEditState extends State<CatDetailEdit> {
           ]),
           Row(children: [
             const Expanded(
-              // 見出し（誕生日）
+              // 見出し（生年月日）
               flex: textExpandedFlex,
               child: Text(
-                '誕生日',
+                '生年月日',
                 textAlign: TextAlign.center,
               ),
             ),
             Expanded(
-              // 誕生日入力エリアの設定
+              // 生年月日入力エリアの設定
               flex: dataExpandedFlex,
               child: TextFormField(
                 maxLines: 1,
                 initialValue: birthday,
                 decoration: const InputDecoration(
-                  hintText: '誕生日を入力してください',
+                  hintText: '生年月日を入力してください',
                 ),
                 onChanged: (birthday) =>
                     setState(() => this.birthday = birthday),

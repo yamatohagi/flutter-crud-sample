@@ -93,7 +93,7 @@ class _CatDetailState extends State<CatDetail> {
                             // 見出しの設定
                             flex: textExpandedFlex,
                             child: Text(
-                              '名前',
+                              '氏名',
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -130,10 +130,10 @@ class _CatDetailState extends State<CatDetail> {
                       Row(
                         children: [
                           const Expanded(
-                            // 「誕生日」の見出し行の設定
+                            // 「生年月日」の見出し行の設定
                             flex: textExpandedFlex,
                             child: Text(
-                              '誕生日',
+                              '生年月日',
                               textAlign: TextAlign.center,
                             ),
                           ),
